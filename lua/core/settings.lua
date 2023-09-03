@@ -29,7 +29,7 @@ vim.o.smartcase = true
 
 -- Keep signcolumn on by default
 -- TODO what to do how
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'auto'
 
 -- Decrease update time
 vim.o.updatetime = 1000 -- every second
