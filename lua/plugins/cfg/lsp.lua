@@ -57,8 +57,8 @@ local servers = {
   pyright = {},
   rust_analyzer = {},
   tsserver = {},
-  cssls = { filetypes = { "css", "scss", "less" }},
-  html = { filetypes = { 'html', 'twig', 'hbs'} },
+  cssls = { filetypes = { "css", "scss", "less" } },
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {
     Lua = {
