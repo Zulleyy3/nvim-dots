@@ -23,26 +23,29 @@ require("core.remaps")
 --[[Configure nvim]]
 require("core.settings")
 
---[[Load Plugins]]
--- Install package manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  }
+-- Only load Plugins when not calling from vscode
+if not vim.g.vscode then
+  --[[Load Plugins]]
+  -- Install package manager
+  local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+  if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system {
+      'git',
+      'clone',
+      '--filter=blob:none',
+      'https://github.com/folke/lazy.nvim.git',
+      '--branch=stable', -- latest stable release
+      lazypath,
+    }
+  end
+  vim.opt.rtp:prepend(lazypath)
+
+  -- Autoinclude all files in plugins
+  require("lazy").setup("plugins.list")
+
+  -- Load related configuration
+  require("plugins.cfg")
 end
-vim.opt.rtp:prepend(lazypath)
-
--- Autoinclude all files in plugins 
-require("lazy").setup("plugins.list")
-
--- Load related configuration
-require("plugins.cfg")
 
 --[[Keybinds and settings related to nvim diagnostics]]
 require("core.diagnostic")
