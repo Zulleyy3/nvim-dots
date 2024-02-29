@@ -53,12 +53,13 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
-  -- gopls = {},
+  gopls = {},
   pyright = {},
   rust_analyzer = {},
   tsserver = {},
   cssls = { filetypes = { "css", "scss", "less" } },
   html = { filetypes = { 'html', 'twig', 'hbs' } },
+  astro = {},
 
   lua_ls = {
     Lua = {
@@ -68,8 +69,14 @@ local servers = {
   },
 }
 
--- Setup neovim lua configuration
+-- Setup neovim lua for developing neovim configuration
 require('neodev').setup()
+
+if vim.api.nvim_buf_get_name(0):find("LuaSnip") then
+  servers.lua_ls.Lua.diagnostics = {
+    globals = { "ls", "s", "sn", "isn", "t", "i", "f", "c", "d", "r", "evetns", "ai", "extras", "l", "rep", "p", "m", "n", "dl", "fmt", "fmta", "conds", "postfix", "types", "parse", "ms", "k"  }
+  }
+end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()

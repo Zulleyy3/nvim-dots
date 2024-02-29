@@ -9,6 +9,7 @@ vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
+vim.o.mousem= 'extend'
 -- TODO :help mousemodel
 
 -- Sync clipboard between OS and Neovim.

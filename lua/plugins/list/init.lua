@@ -46,7 +46,7 @@ return {
       'hrsh7th/cmp-emoji',
 
       -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
+      -- 'rafamadriz/friendly-snippets',
     },
   },
 
@@ -102,12 +102,15 @@ return {
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
+    main = "ibl",
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     -- TODO figure out what i like for this
     opts = {
-      char = '|',
-      show_trailing_blankline_indent = false,
+      indent = {
+        char = '|',
+      }
+      -- show_trailing_blankline_indent = false,
     },
   },
 
