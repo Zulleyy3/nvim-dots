@@ -11,6 +11,7 @@ Thank you TJ for providing kickstart.vim and writing all the notes!
 
 --[[config directories:
   - lua/core: Configures built-in nvim functionality directly
+  - lua/helpers: Helper modules (technically this is another plugin directory)
   - lua/plugins: installs plugin manager and plugins
   - lua/plugins/cfg/: handles plugin specific configuration and keymaps
 ]]
