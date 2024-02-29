@@ -149,6 +149,12 @@ return {
     build = ':TSUpdate',
   },
 
+  {
+    'lervag/vimtex',
+    lazy=false,
+  },
+  P
+
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
