@@ -108,6 +108,11 @@ return {
     -- See `:help indent_blankline.txt`
     -- TODO figure out what i like for this
     opts = {
+      scope = {
+        enabled = false,
+        char = 'L',
+        show_start = false,
+      },
       indent = {
         char = '|',
       }
