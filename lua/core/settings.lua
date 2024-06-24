@@ -40,9 +40,25 @@ vim.o.updatetime = 1000 -- every second
 -- TODO try this out and see how it feels
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
--- TODO set terminal colors how i like it
+-- default off
 vim.o.termguicolors = false
+
+local ok, _ = pcall(vim.cmd, 'colorscheme vimdefaultmodified')
+if not ok then
+  vim.cmd 'colorscheme default' -- if the above fails, then use default
+  -- and set the termguicolors if available
+  if (vim.env.TMUX == nil and vim.env.TERM_PROGRAM ~= "Apple_Terminal")
+    then
+    if vim.fn.has("nvim")
+    then
+      vim.env.NVIM_TUI_ENABLE_TRUE_COLOR=1
+    end
+    if vim.fn.has("termguicolors")
+    then
+      vim.o.termguicolors = true
+    end
+  end
+end
 
 -- Split behaviour
 vim.o.splitbelow = true
