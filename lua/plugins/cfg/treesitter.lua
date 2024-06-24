@@ -11,7 +11,7 @@ require('nvim-treesitter.configs').setup {
   auto_install = true, -- TODO change this back later
 
   highlight = { enable = true, disable = {"latex"} },
-  indent = { enable = false },
+  indent = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
