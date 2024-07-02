@@ -22,6 +22,16 @@ local error_only = function (f)
   end
 end
 
+vim.diagnostic.config({
+  signs = false,
+  underline = true,
+  virtual_text = {
+      severity = {
+        min = vim.diagnostic.severity.INFO
+      }
+  }
+})
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', '[e', error_only(vim.diagnostic.goto_prev), { desc = 'Go to previous diagnostic error message' })

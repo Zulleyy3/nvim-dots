@@ -127,7 +127,7 @@ hi('DiagnosticSignHint',         { link = 'DiagnosticHint' })
 hi('DiagnosticSignOk',           { link = 'DiagnosticOk' })
 hi('DiagnosticDeprecated',       { sp = 'Red', strikethrough = true,    cterm = { strikethrough = true } })
 
-hi('DiagnosticUnnecessary', { link = 'Comment' })
+hi('DiagnosticUnnecessary', { link = 'DiagnosticUnderlineHint' })
 hi('LspInlayHint',          { link = 'NonText' })
 hi('SnippetTabstop',        { link = 'Visual' })
 
