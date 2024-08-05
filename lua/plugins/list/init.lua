@@ -129,6 +129,9 @@ return {
           return vim.fn.executable 'cmake' == 1
         end,
       },
+      --- Not sure if this belongs here, but it's somehting i want as a plugin
+      --- Preview images
+      'nvim-telescope/telescope-media-files.nvim',
     },
   },
 
@@ -145,7 +148,25 @@ return {
     'lervag/vimtex',
     lazy=false,
   },
-  P
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  },
+
+  -- Debug Adapter
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap-python"
+    }
+  },
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
 
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
