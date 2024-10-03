@@ -13,6 +13,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Map Nohl
+vim.keymap.set('n', '<leader>n', function() vim.cmd("nohl") end, { desc = 'Remove Highlights' })
 if vim.g.vscode then
   -- Calling from VSCode
   vim.api.nvim_set_keymap('x','gc',  "<Plug>VSCodeCommentary",     {})
