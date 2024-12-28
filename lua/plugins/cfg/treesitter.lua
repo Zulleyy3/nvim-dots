@@ -3,14 +3,14 @@
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'json', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim','css', 'scss'},
-  ignore_install = {"latex"},
+  ignore_install = {"latex", "bash"},
   sync_install = false,
   modules = {},
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true, -- TODO change this back later
 
-  highlight = { enable = true, disable = {"latex"} },
+  highlight = { enable = true, disable = {"latex", "bash"} },
   indent = { enable = true },
   incremental_selection = {
     enable = true,

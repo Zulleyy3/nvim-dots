@@ -147,6 +147,12 @@ return {
   {
     'lervag/vimtex',
     lazy=false,
+    init = function ()
+      vim.g.vimtex_matchparen_enabled=0
+      vim.g.vimtex_view_method="zathura"
+      -- vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+      -- vim.g.vimtex_view_general_viewer = 'okular'
+    end
   },
   {
     "kylechui/nvim-surround",
@@ -168,6 +174,16 @@ return {
   },
   { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
 
+  -- Outline + Outline Tree
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    },
+  }
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.

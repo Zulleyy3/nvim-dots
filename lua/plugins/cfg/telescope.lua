@@ -1,6 +1,7 @@
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
+local telescope = require('telescope')
+telescope.setup {
   defaults = {
     mappings = {
       i = {
@@ -9,10 +10,24 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    media_files = {
+      media_files = {
+        -- filetypes whitelist
+        -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+        filetypes = { "png", "webp", "jpg", "jpeg" },
+        -- find command (defaults to `fd`)
+        find_cmd = "rg"
+      }
+    },
+  }
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+telescope.load_extension('media_files')
+require("telescope").load_extension("aerial")
+vim.keymap.set("n", "<leader>gg", require("telescope").extensions.aerial.aerial, {desc = "[gg]o through Aerial Tree"})
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
