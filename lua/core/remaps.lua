@@ -15,6 +15,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Map Nohl
 vim.keymap.set('n', '<leader>n', function() vim.cmd("nohl") end, { desc = 'Remove Highlights' })
+
+-- Map a more convenient mapping for system clipboard
+vim.keymap.set({ 'n' , 'v'}, '<leader>c', '\"+', { desc = 'Select system clipboard register' })
 if vim.g.vscode then
   -- Calling from VSCode
   vim.api.nvim_set_keymap('x','gc',  "<Plug>VSCodeCommentary",     {})
