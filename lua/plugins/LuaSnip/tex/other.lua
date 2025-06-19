@@ -9,6 +9,11 @@ return {
     { i(1) }
     )
   ),
+  s({trig="tss", dscr="Expands 'tss' into '\textsuperscript{}'"},
+    fmta("\\textsuperscript{<>}",
+    { i(1) }
+    )
+  ),
   s({trig="tdi", dscr="Expands 'tdi' into '\todo[inline]{}'"},
     fmta("\\todo[inline]{<>}",
     { i(1) }
