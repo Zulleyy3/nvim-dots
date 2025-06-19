@@ -5,8 +5,8 @@ return {
   'tpope/vim-fugitive',
   --tpope/vim-rhubarb', --I don't really need github specific stuff rn
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- -- Detect tabstop and shiftwidth automatically
+  -- 'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -150,7 +150,9 @@ return {
     lazy=false,
     init = function ()
       vim.g.vimtex_matchparen_enabled=0
+      vim.g.vimtex_syntax_nospell_comments = 1
       vim.g.vimtex_view_method="zathura"
+      vim.keymap.set("n", "<leader>tv", "<cmd>VimtexTocToggle<CR>", {desc = "Toggle [v]imtex table of contents"})
       -- vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
       -- vim.g.vimtex_view_general_viewer = 'okular'
     end
@@ -165,7 +167,12 @@ return {
         })
     end
   },
-
+  {
+    'nmac427/guess-indent.nvim',
+    config = function ()
+        require("guess-indent").setup {}
+    end
+  },
   -- Debug Adapter
   {
     "mfussenegger/nvim-dap",
