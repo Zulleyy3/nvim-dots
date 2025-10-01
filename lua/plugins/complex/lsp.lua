@@ -54,8 +54,10 @@ return {
         nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
         nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-
-        nmap('<leader>rt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+        -- Jump to the type of the word under your cursor.
+        --  Useful when you're not sure what type a variable is and you want to see
+        --  the definition of its *type*, not where it was *defined*.
+        nmap('<leader>gt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
         -- See `:help K` for why this keymap
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -71,7 +73,7 @@ return {
         end, '[W]orkspace [L]ist Folders')
 
         -- Create a command `:Format` local to the LSP buffer
-        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        vim.api.nvim_buf_create_user_command(event.buf, 'Format', function(_)
           vim.lsp.buf.format()
         end, { desc = 'Format current buffer with LSP' })
 
@@ -118,7 +120,7 @@ return {
       end
 
       if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-        map('<leader>th', function()
+        nmap('<leader>th', function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
         end, '[T]oggle Inlay [H]ints')
       end
@@ -149,12 +151,15 @@ return {
 
     lua_ls = {
       Lua = {
-        completion = {
-            callSnippet = Replace
-        },
+        -- completion = {
+        --     callSnippet = Replace
+        -- },
         workspace = { checkThirdParty = false },
         telemetry = { enable = false },
         -- diagnostics = { disable = { 'missing-fields' } },
+        diagnostics = {
+              -- disable = { 'missing-fields' }
+        },
       },
     },
   }
@@ -167,9 +172,9 @@ return {
   end
 
   local ensure_installed = vim.tbl_keys(servers or {})
-  vim.list_extend(ensure_installed, {
-    'stylua', -- Used to format Lua code
-  })
+  -- vim.list_extend(ensure_installed, {
+  --   'stylua', -- Used to format Lua code
+  -- })
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
