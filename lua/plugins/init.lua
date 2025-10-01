@@ -8,48 +8,7 @@ return {
   -- -- Detect tabstop and shiftwidth automatically
   -- 'tpope/vim-sleuth',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
-  {
-    -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-      -- Configures Lua LSP for nvim config, neovim runtime and plugin directorys
-      -- Various Annotations and hovers
-      'folke/neodev.nvim',
-    },
-  },
-
-  {
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-
-      -- Filepath completion
-      'FelipeLema/cmp-async-path',
-
-      -- Emoji (idk sometimes it's nice to meme with them)
-      'hrsh7th/cmp-emoji',
-
-      -- Adds a number of user-friendly snippets
-      -- 'rafamadriz/friendly-snippets',
-      'micangl/cmp-vimtex',
-    },
-  },
 
   -- Useful plugin to show you pending keybinds. (Probably good for learning it proper, lets leave them here)
   { 'folke/which-key.nvim', opts = {} },
@@ -108,43 +67,6 @@ return {
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
-  -- Fuzzy Finder (files, lsp, etc)
-  {
-    'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = {
-      -- An actual dependency of telescope
-      'nvim-lua/plenary.nvim',
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-      -- Only load if `make` is available. Make sure you have the system
-      -- requirements installed.
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        -- NOTE: If you are having trouble with this installation,
-        --       refer to the README for telescope-fzf-native for more instructions.
-        -- Use Cmake build for possible portable on windows without having MingGW awailable (probably pointless)
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-        cond = function()
-          return vim.fn.executable 'cmake' == 1
-        end,
-      },
-      --- Not sure if this belongs here, but it's somehting i want as a plugin
-      --- Preview images
-      'nvim-telescope/telescope-media-files.nvim',
-    },
-  },
-
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/nvim-treesitter-context'
-    },
-    build = ':TSUpdate',
-  },
-
   {
     'lervag/vimtex',
     lazy=false,
@@ -173,30 +95,27 @@ return {
         require("guess-indent").setup {}
     end
   },
-  -- Debug Adapter
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "mfussenegger/nvim-dap-python"
-    }
-  },
-  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
-
-  -- Outline + Outline Tree
-  {
-    'stevearc/aerial.nvim',
-    opts = {},
-    -- Optional dependencies
-    dependencies = {
-       "nvim-treesitter/nvim-treesitter",
-       "nvim-tree/nvim-web-devicons"
-    },
-  }
+  -- -- Debug Adapter
+  -- { "rcarriga/nvim-dap-ui",
+  --   dependencies = {
+  --       "mfussenegger/nvim-dap",
+  --       "nvim-neotest/nvim-nio"
+  --   }
+  -- },
+  --
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
+
+  require("plugins.complex.telescope");
+  require("plugins.complex.aerial");
+  require("plugins.complex.lsp");
+  require("plugins.complex.treesitter");
+  require("plugins.complex.nvim-cmp_luasnip");
+  require("plugins.complex.debugger");
+
 }
 

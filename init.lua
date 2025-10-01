@@ -42,10 +42,9 @@ if not vim.g.vscode then
   vim.opt.rtp:prepend(lazypath)
 
   -- Autoinclude all files in plugins
-  require("lazy").setup("plugins.list")
-
-  -- Load related configuration
-  require("plugins.cfg")
+  -- local plugins = require("plugins")
+  -- require("lazy").setup(plugins)
+  require("lazy").setup("plugins")
 end
 
 --[[Keybinds and settings related to nvim diagnostics]]
