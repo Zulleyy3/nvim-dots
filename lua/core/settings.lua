@@ -18,6 +18,20 @@ vim.o.mousem= 'extend'
 --  bind to mousewheel buffer
 vim.o.clipboard = 'unnamed'
 
+
+-- Tab-Length
+vim.o.tabstop = 8
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {"c", "cpp"},
+  callback = function()
+    vim.bo.expandtab = false
+  end,
+})
+
 -- Enable break indent
 vim.o.breakindent = true
 
