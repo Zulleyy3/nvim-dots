@@ -16,6 +16,12 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Map Nohl
 vim.keymap.set('n', '<leader>n', function() vim.cmd("nohl") end, { desc = 'Remove Highlights' })
 
+-- Swap lines up and down
+vim.keymap.set('n', '<c-j>', 'ddp', {silent = true})
+vim.keymap.set('n', '<c-k>', 'ddkP', {silent = true})
+vim.keymap.set('v', '<c-j>', 'dp', {silent = true})
+vim.keymap.set('v', '<c-k>', 'dkP', {silent = true})
+
 -- Map a more convenient mapping for system clipboard
 vim.keymap.set({ 'n' , 'v'}, '<leader>c', '\"+', { desc = 'Select system clipboard register' })
 if vim.g.vscode then
