@@ -38,6 +38,13 @@ return {
     local mapping = cmp.mapping.preset.insert {
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-g>'] = function()
+        if cmp.visible_docs() then
+          cmp.close_docs()
+        else
+          cmp.open_docs()
+        end
+      end,
       ['<C-Space>'] = cmp.mapping.complete {},
       ['<CR>'] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Replace,
@@ -105,6 +112,19 @@ return {
         { name = 'async-path' },
         { name = 'emoji' },
       },
+      experimental = {
+        ghost_text = true,
+      },
+      window = {
+        completion = {
+          -- border="rounded",
+          max_height = 40,
+        },
+        documentation = {
+          border="rounded",
+          max_height = 40,
+        },
+      }
     }
     cmp.setup.filetype("tex", {
       sources = {
@@ -112,6 +132,21 @@ return {
         { name = 'buffer' },
         { name = 'luasnip' },
       },
+    })
+    cmp.setup.filetype("typst", {
+      formatting = {
+        format = function (entry, vim_item)
+          if string.len(vim_item.menu or "") >= 40 then
+            vim_item.menu = string.sub(vim_item.menu or "", 1, 40) .. "[...]"
+          end
+          return vim_item;
+        end
+      },
+      -- view = {
+      --   docs = {
+      --     auto_open = false,
+      --   }
+      -- },
     })
   end
 }

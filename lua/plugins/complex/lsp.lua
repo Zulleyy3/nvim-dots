@@ -8,6 +8,14 @@ return {
 		{ "mason-org/mason.nvim", opts = {} }, --, config = true },
 		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{
+			"seblyng/roslyn.nvim",
+			---@module 'roslyn.config'
+			---@type RoslynNvimConfig
+			opts = {
+				-- your configuration comes here; leave empty for default settings
+			},
+		},
 
 		-- Useful status updates for LSP
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -16,6 +24,13 @@ return {
 		-- Configures Lua LSP for nvim config, neovim runtime and plugin directorys
 		-- Various Annotations and hovers
 		"folke/neodev.nvim",
+		-- {
+		-- 	"chomosuke/typst-preview.nvim",
+		-- 	lazy = false, -- or ft = 'typst'
+		-- 	version = "1.*",
+		-- 	opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+		-- 	dependencies_bin = {tinymist = "tinymist.cmd"}
+		-- },
 	},
 	-- [[ Configure LSP ]]
 	config = function()
@@ -135,6 +150,23 @@ return {
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
 				end
+
+				-- lspclient specific commands and keymaps
+				if client and client["name"] == "tinymist" then
+					opentypstpdf = function()
+						local filepath = vim.api.nvim_buf_get_name(0)
+
+						if filepath:match("%.typ$") then
+							local pdf_path = filepath:gsub("%.typ$", ".pdf")
+							print(pdf_path)
+
+							vim.system({ "zathura", pdf_path })
+						end
+					end
+					vim.api.nvim_create_user_command("OpenTypstPdf", opentypstpdf, {})
+					nmap("<leader>ll", opentypstpdf, "Open Typst PDF")
+				end
+
 			end,
 		})
 		-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -159,7 +191,15 @@ return {
 			cssls = { filetypes = { "css", "scss", "less" } },
 			html = { filetypes = { "html", "twig", "hbs" } },
 			astro = {},
-
+			roslyn = {},
+			rzls = {},
+			tinymist = {
+			        settings = {
+				    formatterMode = "typstyle",
+				    exportPdf = "onSave",
+				    semanticTokens = "disable",
+				},
+			},
 			lua_ls = {
 				Lua = {
 					-- completion = {
@@ -215,21 +255,19 @@ return {
 			"stylua", -- Used to format Lua code
 		})
 
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-		require("mason-lspconfig").setup({
-			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-			automatic_installation = false,
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for ts_ls)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
+		require("mason").setup({
+			registries = {
+				"github:Crashdummyy/mason-registry", -- this contains the register for Roslyn
+				"github:mason-org/mason-registry",
 			},
 		})
+
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		require("mason-lspconfig").setup()
+
+		-- TODO make the servers load all the specific settings
+		vim.lsp.config("tinymist", servers["tinymist"])
+
+
 	end,
 }
