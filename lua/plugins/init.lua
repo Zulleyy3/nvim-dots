@@ -7,11 +7,41 @@ return {
 
   -- -- Detect tabstop and shiftwidth automatically
   -- 'tpope/vim-sleuth',
-
-
-
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons", -- optional, but recommended
+    },
+    lazy = false, -- neo-tree will lazily load itself
+    init = function ()
+      vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
+      require("neo-tree").setup({
+        default_component_configs = {
+          git_status = {
+            symbols = {
+              -- Change type
+              added = "✚", -- or ""
+              modified = "", -- or ""
+              deleted = "✖", -- this can only be used in the git_status source
+              renamed = "󰁕", -- this can only be used in the git_status source
+              -- Status type
+              untracked = "",
+              ignored = "",
+              unstaged = "Ü",
+              staged = "",
+              conflict = "",
+            }
+          },
+        },
+      })
+    end,
+  },
   -- Useful plugin to show you pending keybinds. (Probably good for learning it proper, lets leave them here)
   { 'folke/which-key.nvim', opts = {} },
+  -- { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -42,6 +72,22 @@ return {
         component_separators = '|',
         section_separators = '',
       },
+      sections = {
+        lualine_c = {
+          {
+            'filename',
+            path = 3,
+          },
+        },
+      },
+      inactive_sections = {
+        lualine_c = {
+          {
+            'filename',
+            path = 3,
+          }
+        }
+      },
     },
   },
 
@@ -65,8 +111,6 @@ return {
     },
   },
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
   {
     'lervag/vimtex',
     lazy=false,
@@ -95,6 +139,7 @@ return {
         require("guess-indent").setup {}
     end
   },
+  'mfussenegger/nvim-ansible',
   -- -- Debug Adapter
   -- { "rcarriga/nvim-dap-ui",
   --   dependencies = {
