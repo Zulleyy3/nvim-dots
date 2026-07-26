@@ -28,7 +28,7 @@ vim.o.expandtab = true
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {"c", "cpp"},
   callback = function()
-    vim.bo.expandtab = false
+  vim.bo.expandtab = false
   end,
 })
 
